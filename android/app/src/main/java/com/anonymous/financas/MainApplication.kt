@@ -1,4 +1,4 @@
-package com.financas
+package com.anonymous.financas
 
 import android.app.Application
 import android.content.res.Configuration

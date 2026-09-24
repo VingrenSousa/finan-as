@@ -1,4 +1,4 @@
-package com.financas
+package com.anonymous.financas
 
 import android.os.Build
 import android.os.Bundle

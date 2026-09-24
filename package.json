@@ -1,12 +1,19 @@
 {
   "name": "financas",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "dependencies": {
-    "expo": "~57.0.24",
+    "@expo-google-fonts/poppins": "^0.4.1",
+    "@expo/vector-icons": "^15.1.1",
+    "expo": "~57.0.25",
+    "expo-dev-client": "~57.0.19",
+    "expo-font": "~57.0.4",
     "expo-status-bar": "~57.0.1",
     "react": "19.2.3",
-    "react-native": "0.86.3"
+    "react-native": "0.86.3",
+    "react-native-iphone-x-helper": "^1.3.1",
+    "react-native-responsive-fontsize": "^0.5.1",
+    "styled-components": "^6.5.3"
   },
   "publishConfig": {
     "executableFiles": [
