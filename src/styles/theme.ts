@@ -23,7 +23,7 @@ export default {
 
     },
     FONTS:{
-        REGULAR:" Poppins_400Regular",
+        REGULAR:"Poppins_400Regular",
         MEDIUM:"Poppins_500Medium",
         BOLD:"Poppins_700Bold"
     }

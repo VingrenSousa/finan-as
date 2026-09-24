@@ -1,6 +1,7 @@
 
 import HighlightCard from "../../components/HighlightCard";
-import { Conteiner, Header,UserInfo,Photo,User,UserGreeting,UserName, UserConteiner, Icom, HighlightCards } from "./styles";
+import TransactionCard from "../../components/TransactionCard";
+import { Conteiner, Header,UserInfo,Photo,User,UserGreeting,UserName, UserConteiner, Icom, HighlightCards,Transactions,Title } from "./styles";
 
 
 
@@ -38,6 +39,14 @@ export default function Dashboard(){
                  
 
             </HighlightCards>
+
+            <Transactions>
+                <Title>
+                    Listagem
+                </Title>
+
+                <TransactionCard/>
+            </Transactions>
         </Conteiner> 
     )
 }

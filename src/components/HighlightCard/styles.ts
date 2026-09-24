@@ -31,8 +31,9 @@ export const Header= styled.View`
 export const Title= styled.Text<propsCard>`
     font-family:${({theme})=>theme.FONTS.REGULAR};
     font-size:${RFValue(14)}px;
-    color:${({theme,Types})=>Types==="total"?theme.COLORS.SHAPE:theme.COLORS.TEXT_DARK};;
-
+    color:${({theme,Types})=>Types==="total"?theme.COLORS.SHAPE:theme.COLORS.TEXT_DARK};
+    padding: 2px;
+    
 `
 
 export const Icom= styled(Feather)<propsCard>`
