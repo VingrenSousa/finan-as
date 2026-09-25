@@ -3,6 +3,8 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 import Feather from '@expo/vector-icons/Feather';
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { FlatList } from "react-native";
+import { dataListProps } from ".";
 
 
 
@@ -92,4 +94,7 @@ margin-top:${RFPercentage(12)}px;`
 export const Title=styled.Text`
     font-size:${RFValue(18)}px;
     font-family:${({ theme }) => theme.FONTS.REGULAR};
+    margin-bottom: 16px;
 `
+
+

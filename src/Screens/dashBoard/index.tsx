@@ -1,14 +1,49 @@
 
+import { getBottomSpace } from "react-native-iphone-x-helper";
 import HighlightCard from "../../components/HighlightCard";
-import TransactionCard from "../../components/TransactionCard";
+import TransactionCard, { propsDateCard } from "../../components/TransactionCard";
 import { Conteiner, Header,UserInfo,Photo,User,UserGreeting,UserName, UserConteiner, Icom, HighlightCards,Transactions,Title } from "./styles";
+import { FlatList } from "react-native";
 
 
-
+export interface dataListProps extends propsDateCard{
+    id:string
+}
 
 export default function Dashboard(){
 
-
+    const date:dataListProps[]=[
+        {
+            id:"1",
+            type:"positive",
+            title:"Desenvolvimento de site",
+            amount:"R$12.000,00",
+            date:"13/04/2026",
+            category:{
+                name:"Vendas",
+                icon:"dollar-sign"
+        }},
+        {
+             id:"2",
+            type:"negative",
+            title:"Haburgueria pizzy",
+            amount:"R$59,00",
+            date:"13/04/2026",
+            category:{
+                name:"Alimentacao",
+                icon:"coffee"
+        }},
+        {
+             id:"3",
+            type:"negative",
+            title:"aluguel do apartamento",
+            amount:"R$1.200,00",
+            date:"13/04/2026",
+            category:{
+                name:"casa",
+                icon:"shopping-bag"
+        }},
+    ]
     return(
         <Conteiner>  
             <Header>
@@ -44,8 +79,18 @@ export default function Dashboard(){
                 <Title>
                     Listagem
                 </Title>
+                <FlatList<dataListProps>
+                
+                  data={date}
+                  showsVerticalScrollIndicator={false}
+                  keyExtractor={item=>item.id}
+                  renderItem={({item})=><TransactionCard date={item}/>}
+                  contentContainerStyle={{
+                    paddingBottom:22
+                  }}
+                />
 
-                <TransactionCard/>
+             
             </Transactions>
         </Conteiner> 
     )
