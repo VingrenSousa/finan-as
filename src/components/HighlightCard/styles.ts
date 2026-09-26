@@ -10,7 +10,7 @@ import styled from "styled-components/native";
 export const Conteiner = styled.View<propsCard>`
     background-color:${({theme,Types})=>Types==="total"?theme.COLORS.SECONDARY:theme.COLORS.SHAPE};
 
-    width:${RFValue(300)}px;
+    width:${RFValue(280)}px;
 
     border-radius:7px;
     padding: 19px 23px;

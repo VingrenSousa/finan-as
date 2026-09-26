@@ -4,46 +4,58 @@ import HighlightCard from "../../components/HighlightCard";
 import TransactionCard, { propsDateCard } from "../../components/TransactionCard";
 import { Conteiner, Header,UserInfo,Photo,User,UserGreeting,UserName, UserConteiner, Icom, HighlightCards,Transactions,Title } from "./styles";
 import { FlatList } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
 
 export interface dataListProps extends propsDateCard{
-    id:string
+    id:string,
+    name:string
+    
 }
 
 export default function Dashboard(){
+    const[date,setDate]=useState<dataListProps[]>([])
+    
+    async function getDateTransaction() {
+        const dateTransactionKey="@financas:transaction";
+        const response = await AsyncStorage.getItem(dateTransactionKey)
+        const transacton = response?JSON.parse(response):[]
+        
+        const transactonFormat:dataListProps[] =transacton.map((item:dataListProps)=>{
+            const amount = Number(item.amount).toLocaleString("pt-BR",{style:'currency',currency:"BRL"});
 
-    const date:dataListProps[]=[
-        {
-            id:"1",
-            type:"positive",
-            title:"Desenvolvimento de site",
-            amount:"R$12.000,00",
-            date:"13/04/2026",
-            category:{
-                name:"Vendas",
-                icon:"dollar-sign"
-        }},
-        {
-             id:"2",
-            type:"negative",
-            title:"Haburgueria pizzy",
-            amount:"R$59,00",
-            date:"13/04/2026",
-            category:{
-                name:"Alimentacao",
-                icon:"coffee"
-        }},
-        {
-             id:"3",
-            type:"negative",
-            title:"aluguel do apartamento",
-            amount:"R$1.200,00",
-            date:"13/04/2026",
-            category:{
-                name:"casa",
-                icon:"shopping-bag"
-        }},
-    ]
+      
+            const dateFormatted = Intl.DateTimeFormat('pt-BR',{
+                day:"2-digit",
+                month:"2-digit",
+                year:"2-digit",
+            }).format(new Date(item.date))
+
+            return{
+                id:item.id,
+                title:item.name,
+                amount,
+                type:item.type,
+                category:item.category,
+                date:dateFormatted
+                
+           
+         }
+        })
+        setDate(transactonFormat)
+        
+    }
+
+    useEffect(()=>{
+        getDateTransaction();
+    },[])
+
+    useFocusEffect(useCallback(()=>{
+        getDateTransaction();
+    },[]));
+   
     return(
         <Conteiner>  
             <Header>

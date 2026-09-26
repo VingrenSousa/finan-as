@@ -1,5 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import { Conteiner,Title,Amount,Foouter,Category,Icon,CategoryName,Date } from "./styles";
+import { categories } from "../../utils/categoty";
 
 type propscategory={
     name:string;
@@ -9,8 +10,8 @@ export type propsDateCard={
         type:"positive"|"negative"
         title:string;
         amount:string;
-        category:propscategory;
-        date:String
+        category:string;
+        date:string
 }
 interface porpstransactionsCard{
     date:propsDateCard
@@ -18,6 +19,8 @@ interface porpstransactionsCard{
 }
 
 export default function TransactionCard({date}:porpstransactionsCard){
+
+    const myCategory = categories.filter(item=>item.key===date.category)[0]
     return(
         <Conteiner>
             <Title> {date.title}</Title>
@@ -27,9 +30,9 @@ export default function TransactionCard({date}:porpstransactionsCard){
             </Amount>
             <Foouter>
                 <Category>
-                    <Icon name={date.category.icon}/>
+                    <Icon name={myCategory.icon}/>
                     <CategoryName>
-                       {date.category.name}
+                       {myCategory.name}
                     </CategoryName>
                 </Category>
                 <Date>
