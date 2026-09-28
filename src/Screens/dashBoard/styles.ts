@@ -95,6 +95,7 @@ export const Title=styled.Text`
     font-size:${RFValue(18)}px;
     font-family:${({ theme }) => theme.FONTS.REGULAR};
     margin-bottom: 16px;
+    color:${({ theme }) => theme.COLORS.TEXT_DARK}
 `
 
 

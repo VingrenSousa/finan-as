@@ -1,6 +1,5 @@
 import styled from "styled-components/native";
 import Feather  from "@expo/vector-icons/Feather";
-import theme from "../../styles/theme";
 import { RFValue } from "react-native-responsive-fontsize";
 
 type porps={
@@ -20,6 +19,7 @@ export const Title=styled.Text`
     font-size:${RFValue(14)}px;
     font-family:${({theme})=>theme.FONTS.REGULAR};
     margin-bottom:16px;
+    color:${({ theme }) => theme.COLORS.TEXT_DARK};
 `;
 
 export const Amount=styled.Text<porps>`

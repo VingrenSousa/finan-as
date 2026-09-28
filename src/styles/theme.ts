@@ -1,4 +1,4 @@
-export default {
+export const themeWhite ={
     COLORS:{
         PRIMARY:"#5636d3",
 
@@ -28,3 +28,41 @@ export default {
         BOLD:"Poppins_700Bold"
     }
 }
+
+export const ThemeDarck= {
+    COLORS : {
+        PRIMARY: "#121212",
+
+        SECONDARY: "#F5F5F5",
+        SECONDARY_LIGTH: "rgba(255, 135, 44, 0.3)",
+
+        SUCCESS: "#12A454",
+        SUCCESS_LIGTH: "rgba(18, 164, 84, 0.3)",
+
+        ATTENTION: "#E83F5B",
+        ATTENTION_LIGTH: "rgba(232, 63, 91, 0.3)",
+
+        // Dark
+        SHAPE: "#202124",
+        TITLE: "#FFFFFF",
+        TEXT: "#A8ADBD",
+
+        BACKGROUND: "#121214",
+
+        TEXT_DARK: "#FFFFFF",
+    }   ,
+    FONTS:{
+        REGULAR:"Poppins_400Regular",
+        MEDIUM:"Poppins_500Medium",
+        BOLD:"Poppins_700Bold"
+    }
+}
+
+const COLOR={
+        white:"#F5F5F5",
+        cinza_100:"#a6a6a6",
+        cinza_500:"#3d3d3d",
+        black:"#121212"
+
+    }
+    

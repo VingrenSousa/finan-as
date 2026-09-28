@@ -25,7 +25,8 @@ export default function AppRouter(){
             tabBarLabelPosition:"beside-icon",
             tabBarStyle:{
                 height:88,
-                paddingVertical:Platform.OS==="ios"?23:18
+                paddingVertical:Platform.OS==="ios"?23:18,
+                backgroundColor:theme.COLORS.SHAPE,
             }
         }}>
             <Screen
