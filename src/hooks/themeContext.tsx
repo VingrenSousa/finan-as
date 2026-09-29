@@ -9,7 +9,7 @@ interface ThemeContext {
 interface CategoryProviderProps {
   children: ReactNode;
 }
-  export const ThemeContext = createContext({} as ThemeContext);
+export const ThemeContext = createContext({} as ThemeContext);
 
 export function ContextTheme({ children }: CategoryProviderProps) {
 

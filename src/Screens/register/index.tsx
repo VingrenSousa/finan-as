@@ -56,11 +56,17 @@ export default function Register(){
         if(category.key=="category"){
            return setAviso("É preciso coloca uma categoria")
         }
+        if( Number.isNaN(Number(amount))){
+            return setAviso("É numero valido")
+        }
+
+        const value = amount.split(",")[0];
         
+        console.log(Number(value))
         const NewTansaction={
             id:String(uuid.v4()),
             name:name,
-            amount:amount,
+            amount:String(value),
             category:category.key,
             date: new Date(),
             type:transectionType
@@ -69,7 +75,7 @@ export default function Register(){
         try {
             const dateKey="@financas:transaction";
 
-            const date = await AsyncStorage.getItem("@financas:transaction");
+            const date = await AsyncStorage.getItem(dateKey);
 
             const currendDate= date? JSON.parse(date):[];
 
@@ -95,8 +101,9 @@ export default function Register(){
         async function name() {
             await AsyncStorage.removeItem("@financas:transaction")
         }
-       
-       
+        
+  
+      
     },[])
     return( 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

@@ -34,7 +34,7 @@ export const ThemeDarck= {
         PRIMARY: "#121212",
 
         SECONDARY: "#F5F5F5",
-        SECONDARY_LIGTH: "rgba(255, 135, 44, 0.3)",
+        SECONDARY_LIGTH: "rgba(252, 252, 252, 0.3)",
 
         SUCCESS: "#12A454",
         SUCCESS_LIGTH: "rgba(18, 164, 84, 0.3)",
