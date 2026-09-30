@@ -13,6 +13,10 @@ import AppRouter from "./routes/app.routes";
 
 import { ContextTheme, ThemeContext } from "./hooks/themeContext";
 import { useContext } from "react";
+import SiginIn from "./Screens/signIn";
+import { AuthProvider } from "./hooks/UseAuthContext";
+
+
 
 function AppContent() {
   const { themes } = useContext(ThemeContext);
@@ -39,7 +43,11 @@ export default function App() {
 
   return (
     <ContextTheme>
-      <AppContent />
+       <ThemeProvider theme={themeWhite }>
+        <AuthProvider>
+          <SiginIn />
+        </AuthProvider>
+      </ThemeProvider>
     </ContextTheme>
   );
 }

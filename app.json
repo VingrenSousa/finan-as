@@ -2,6 +2,7 @@
   "expo": {
     "name": "financas",
     "slug": "financas",
+    "schema":"financas",
     "version": "1.0.0",
     "plugins": [
       "expo-font"
