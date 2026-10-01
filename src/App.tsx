@@ -12,21 +12,21 @@ import { NavigationContainer } from "@react-navigation/native";
 import AppRouter from "./routes/app.routes";
 
 import { ContextTheme, ThemeContext } from "./hooks/themeContext";
-import { useContext } from "react";
-import SiginIn from "./Screens/signIn";
-import { AuthProvider } from "./hooks/UseAuthContext";
+
+import { AuthProvider, useAuth } from "./hooks/UseAuthContext";
+import RouterSiginIn from "./routes/app.steck.routes";
 
 
 
 function AppContent() {
-  const { themes } = useContext(ThemeContext);
-
+ 
+  const {user} =useAuth()
   return (
-    <ThemeProvider theme={themes === "white" ? themeWhite : ThemeDarck}>
+  
       <NavigationContainer>
-        <AppRouter />
+        {user.isLogin?<AppRouter/>:<RouterSiginIn/>}
       </NavigationContainer>
-    </ThemeProvider>
+    
   );
 }
 
@@ -45,7 +45,7 @@ export default function App() {
     <ContextTheme>
        <ThemeProvider theme={themeWhite }>
         <AuthProvider>
-          <SiginIn />
+           <AppContent/>
         </AuthProvider>
       </ThemeProvider>
     </ContextTheme>

@@ -1,9 +1,11 @@
 import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
-
-export const Conteiner=styled.TouchableOpacity`
+type props={
+    color?:string,
+}
+export const Conteiner=styled.TouchableOpacity<props>`
     width:100%;
-    background-color:${({theme})=>theme.COLORS.SECONDARY};
+    background-color:${({theme, color})=>color || theme.COLORS.SECONDARY};
     border-radius:5px;
     padding:18px;
     align-items:center

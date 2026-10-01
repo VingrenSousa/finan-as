@@ -6,31 +6,46 @@ import {
     Title,
     LogoIcon,
     TitleWrapper,
-    SignInTitle,
     Footer,
     ConteinerFooter,
+    ConteinerSubmit,
+    ConteinerSeparator,
+    Separator,
+    TextSeparator,
+    ConteinerSignInContas,
+    TextCreate,
+    Br,
+    Buttom,
+    ConteinerCreate,
 
  } from "./styles";
-import { useContext } from "react";
+
 import { useAuth } from "../../hooks/UseAuthContext";
+import InputSiginIn from "../../components/forms/InputSignIn";
+import Button from "../../components/forms/button";
+import { themeWhite } from "../../styles/theme";
+import ButtonSignInConta from "../../components/forms/buttonSignConta";
+import { useNavigation } from "@react-navigation/native";
+import { AuthStackParamList } from "../../routes/app.steck.routes";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { useCallback, useEffect } from "react";
 
-
+type navigationProps= StackNavigationProp<AuthStackParamList>
 export default function SiginIn(){
     const date = useAuth()
+    const navigate= useNavigation<navigationProps>()
    
 
-    async function handleGoogle(){ 
-        try {
-            await date.signInWithGoogle()
-        } catch (error) {
-            
-        }
-        date.signInWithGoogle
-
-    };
-     function handleApple(){
-        
-    };
+  function handleCreate() {
+    navigate.navigate("Create")
+  }
+ 
+   function handleLogin() {
+    date.handleLogin()
+  }
+  useEffect(()=>{
+   handleCreate()
+   },[])
     return(
         
         <Conteiner>
@@ -46,20 +61,44 @@ export default function SiginIn(){
 
                 </TitleWrapper>
                
-                <SignInTitle>
-                    Faça seu login com {"\n"}
-                    uma das contas a baixo
-                </SignInTitle>
+               
             </Header>
             <Footer>
+
                 <ConteinerFooter >
-                    <ButtonSignIn onPress={handleGoogle} type={"android"}/>
-                    { 
-                        Platform.OS==="android" && 
-                            <ButtonSignIn onPress={handleApple} type={"ios"}/>
-                    }
+                    <InputSiginIn label="Email" />
+                    <InputSiginIn label="Senha" />
                 </ConteinerFooter>
+
+                <ConteinerSubmit>
+                     <Button onPress={handleLogin} color={themeWhite.COLORS.PRIMARY} title="Entra"/>
+
+                        
+                    <ConteinerSeparator>
+                        <Separator/>
+                        <TextSeparator>Ou</TextSeparator>
+                        <Separator/>
+                    </ConteinerSeparator>
+
+                    <ConteinerSignInContas>
+                        <ButtonSignInConta type="google" />
+                        <ButtonSignInConta  type="apple"/>
+                    </ConteinerSignInContas>
+
+                    <ConteinerCreate>
+                        <>
+                            <TextCreate>Não tem uma conta?</TextCreate>
+                            <Buttom onPress={handleCreate}  >
+                                <Br> Crie uma agora </Br>
+                            </Buttom>
+                        </>
+                    </ConteinerCreate>
+                </ConteinerSubmit>
+
+             
             </Footer>
         </Conteiner>
+               
+
     )
 }

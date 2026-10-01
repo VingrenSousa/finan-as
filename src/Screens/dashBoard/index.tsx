@@ -8,6 +8,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import { ThemeContext } from "../../hooks/themeContext";
+import { useAuth } from "../../hooks/UseAuthContext";
 
 
 export interface dataListProps extends propsDateCard{
@@ -27,7 +28,7 @@ interface higtLightDateProps{
 
 }
 export default function Dashboard(){
-     const { themes, setThemes } = useContext(ThemeContext);
+     const { handleLogout } = useAuth();
     const[date,setDate]=useState<dataListProps[]>([])
 
     const[higtLightDate,setHigtLightDate]=useState<higtLightDateProps>()
@@ -118,6 +119,9 @@ export default function Dashboard(){
         setDate(transactonFormat)
         
     }
+    function handleOut() {
+      handleLogout()
+    }
 
     useEffect(()=>{
         getDateTransaction();
@@ -139,7 +143,7 @@ export default function Dashboard(){
                         </User>
                     </UserInfo>
                     
-                    <Icom onPress={()=>setThemes(themes==="white"?"dark":"white")} name="power"/>
+                    <Icom onPress={handleOut} name="power"/>
                 </UserConteiner>
             </Header>
             <HighlightCards >
