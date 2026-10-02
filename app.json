@@ -5,7 +5,8 @@
     "schema":"financas",
     "version": "1.0.0",
     "plugins": [
-      "expo-font"
+      "expo-font",
+      "@react-native-firebase/app"
     ],
     "android": {
       "package": "com.anonymous.financas",
@@ -14,10 +15,7 @@
      "ios": {
       "bundleIdentifier": "com.vingren.financas",
       "googleServicesFile": "./GoogleService-Info.plist"
-    },
-    "plugins": [
-      "@react-native-firebase/app"
-     
-    ]
+    }
+    
   }
 }
