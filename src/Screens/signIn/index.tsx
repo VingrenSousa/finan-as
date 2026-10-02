@@ -43,9 +43,7 @@ export default function SiginIn(){
    function handleLogin() {
     date.handleLogin()
   }
-  useEffect(()=>{
-   handleCreate()
-   },[])
+  
     return(
         
         <Conteiner>

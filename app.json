@@ -8,7 +8,16 @@
       "expo-font"
     ],
     "android": {
-      "package": "com.anonymous.financas"
-    }
+      "package": "com.anonymous.financas",
+      "googleServicesFile": "./google-services.json"
+    },
+     "ios": {
+      "bundleIdentifier": "com.vingren.financas",
+      "googleServicesFile": "./GoogleService-Info.plist"
+    },
+    "plugins": [
+      "@react-native-firebase/app"
+     
+    ]
   }
 }
