@@ -11,6 +11,7 @@ O aplicativo tem como objetivo permitir que o usuário registre seus gastos, aco
 * TypeScript
 * Expo Router
 * Styled Components
+* firebase
 
 ## 📱 Funcionalidades
 
