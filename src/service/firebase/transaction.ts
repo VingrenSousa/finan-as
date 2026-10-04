@@ -7,6 +7,7 @@ import {
   query,
   where,
   limit,
+  orderBy,
 } from "@react-native-firebase/firestore";
 import { propsDateCard } from "../../components/TransactionCard";
 
@@ -52,8 +53,11 @@ export class TransactionService {
   }
 
   async getAll():Promise<dataListProps[]>{
-    const snapshot = await getDocs(this.collectionRef);
-   const is
+   
+   const isQuery = query(
+    this.collectionRef,
+    orderBy("date", "desc")) 
+   const snapshot = await getDocs(isQuery);
     return snapshot.docs.map(doc => ({
         id: doc.id,
         name: doc.data().name,

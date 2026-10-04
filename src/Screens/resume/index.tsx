@@ -9,6 +9,7 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { ScrollView } from "react-native";
 import {addMonths,subMonths,format} from "date-fns"
 import {ptBR} from "date-fns/locale"
+import { TransactionService } from "../../service/firebase/transaction";
 export type propsTransaction={
         type:"positive"|"negative"
         title:string;
@@ -24,6 +25,7 @@ type propsCategory={
     kay:string
 }
 export default function Resume(){
+    const firestore = new TransactionService()
     const [TotalByCategories,setTotalByCategories]=useState<propsCategory[]>([])
     const [selectedDate,setSelectedDates]=useState(new Date())
 
@@ -39,11 +41,11 @@ export default function Resume(){
 
     }
     async function loadDate() {
-         const dateKey="@financas:transaction";
+        
 
-        const response = await AsyncStorage.getItem(dateKey);
 
-        const responseFormatted:propsTransaction[]= response? JSON.parse(response):[];
+
+        const responseFormatted= await firestore.getAll()
 
     
         const expensives=responseFormatted.filter(expensive=>
