@@ -1,19 +1,22 @@
 
-import { getBottomSpace } from "react-native-iphone-x-helper";
+
 import HighlightCard from "../../components/HighlightCard";
 import TransactionCard, { propsDateCard } from "../../components/TransactionCard";
 import { Conteiner, Header,UserInfo,Photo,User,UserGreeting,UserName, UserConteiner, Icom, HighlightCards,Transactions,Title } from "./styles";
 import { FlatList } from "react-native";
-import { useCallback, useContext, useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useCallback, useEffect, useState } from "react";
+
 import { useFocusEffect } from "@react-navigation/native";
-import { ThemeContext } from "../../hooks/themeContext";
+
 import { useAuth } from "../../hooks/UseAuthContext";
+
+
+import { TransactionService } from "../../service/firebase/transaction";
 
 
 export interface dataListProps extends propsDateCard{
     id:string,
-    name:string
+    name?:string
     
 }
 type  higtLightProps ={
@@ -26,10 +29,12 @@ interface higtLightDateProps{
     total:higtLightProps
     
 
-}
+}  
+
 export default function Dashboard(){
-     const { handleLogout } = useAuth();
+    const { handleLogout } = useAuth();
     const[date,setDate]=useState<dataListProps[]>([])
+    const firebase = new TransactionService()
 
     const[higtLightDate,setHigtLightDate]=useState<higtLightDateProps>()
 
@@ -47,10 +52,11 @@ export default function Dashboard(){
     }
     
     async function getDateTransaction() {
-        const dateTransactionKey="@financas:transaction";
-        const response = await AsyncStorage.getItem(dateTransactionKey)
-        const transacton = response?JSON.parse(response):[]
+        
+       const transacton:dataListProps[] = await firebase.getAll();
 
+       console.log(transacton)
+        
         let entriesTotal= 0
         let ExpensiveTotla = 0
         

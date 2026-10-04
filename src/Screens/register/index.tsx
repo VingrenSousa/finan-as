@@ -11,7 +11,22 @@ import { Alert, Keyboard, Modal, TouchableWithoutFeedback } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { TransactionService } from "../../service/firebase/transaction";
+
+
+type CategoryObeject={
+    id: string;
+    name: string;
+    amount: string;
+    category: string;
+    date: Date;
+    type: string;
+}
+
+
 export default function Register(){
+    const firebase = new TransactionService()
+
     const [transectionType,setTransectionType]=useState("")
     const [categoryModal,setCategoryModal]=useState(false)
 
@@ -33,18 +48,23 @@ export default function Register(){
     function handleTransactionTypesSelect(type:"positive"|"negative"){
         setTransectionType(type)
     }
+
     function handleCloseSelectCategoryModal(){
         setCategoryModal(false)
     }
+
     function handleOpemSelectCategoryModal(){
         setCategoryModal(true)
     }
+
     function resertState(){
             setCategory({ key:"category", name:"Categoria",})
             setName("")
             setAmount("")
             setTransectionType("")
     }
+
+    async function Firebase(CategoryObeject: CategoryObeject){ await firebase.create(CategoryObeject)}
     async function handleRegister(){
 
         if(!name||!amount){
@@ -71,24 +91,12 @@ export default function Register(){
             date: new Date(),
             type:transectionType
         }
+
         
         try {
-            const dateKey="@financas:transaction";
-
-            const date = await AsyncStorage.getItem(dateKey);
-
-            const currendDate= date? JSON.parse(date):[];
-
-            const dateFormatted=[
-                ...currendDate,
-                NewTansaction
-            ];
-
-            await AsyncStorage.setItem(dateKey,JSON.stringify(dateFormatted));
-
+            Firebase(NewTansaction)
             resertState();
             navigate.goBack()
-
         } catch (error) {
             console.log(error)
             Alert.alert("nao foi possivel salva, tente novamente")
@@ -101,7 +109,7 @@ export default function Register(){
         async function name() {
             await AsyncStorage.removeItem("@financas:transaction")
         }
-        
+       
   
       
     },[])

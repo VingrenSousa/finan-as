@@ -7,6 +7,7 @@
     "@expo/vector-icons": "^15.1.1",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-native-firebase/app": "^26.4.0",
+    "@react-native-firebase/firestore": "^26.4.0",
     "@react-native-masked-view/masked-view": "0.3.2",
     "@react-navigation/bottom-tabs": "^7.19.2",
     "@react-navigation/native": "^7.4.1",
@@ -15,6 +16,7 @@
     "date-fns": "^4.4.0",
     "expo": "~57.0.26",
     "expo-auth-session": "~57.0.13",
+    "expo-build-properties": "~57.0.22",
     "expo-dev-client": "~57.0.19",
     "expo-font": "~57.0.4",
     "expo-status-bar": "~57.0.1",
@@ -31,6 +33,7 @@
     "react-native-uuid": "^2.0.4",
     "react-native-worklets": "0.10.1",
     "styled-components": "^6.5.3",
+    "typescript": "~5.9.3",
     "victory-native": "^42.0.1"
   },
   "publishConfig": {
@@ -47,6 +50,6 @@
   "private": true,
   "devDependencies": {
     "@types/react": "~19.2.4",
-    "typescript": "~6.0.3"
+    "typescript": "~5.9.3"
   }
 }

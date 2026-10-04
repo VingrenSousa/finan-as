@@ -8,7 +8,7 @@ type propscategory={
 }
 export type propsDateCard={
         type:"positive"|"negative"
-        title:string;
+        title?:string;
         amount:string;
         category:string;
         date:string
