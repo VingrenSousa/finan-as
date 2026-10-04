@@ -7,8 +7,14 @@ import { Conteiner,ConteinerInpus,Headar,Main,Title,Foouter} from "./styles";
 import { Alert } from "react-native";
 import { navigationProps } from "../../routes/app.steck.routes";
 import { useNavigation } from "@react-navigation/native";
-import ButtonSignIn from "../../components/forms/buttonSign";
+
 import ButtonSignInConta from "../../components/forms/buttonSignConta";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "@react-native-firebase/auth";
 
 
 export default function Create() {
@@ -67,8 +73,29 @@ export default function Create() {
             }
         }
     }
-    function handleCreate() {
-        navigate.goBack()
+    async function handleCreate() {
+
+        const auth = getAuth();
+
+        try {
+            const result = await createUserWithEmailAndPassword(auth,email,senha)
+            await updateProfile(result.user, {
+            displayName: neme,
+            });
+            navigate.goBack()
+
+        } catch (error) {
+           const firebaseError = error as { code?: string };
+
+            if (firebaseError.code === "auth/email-already-in-use") {
+                return  Alert.alert("Erro", "Esse email já está cadastrado em outra conta");
+            } else {
+                console.log(error);
+                Alert.alert("Erro", "Tente novamente");
+            }
+        }
+      
+        
     }
     useEffect(()=>{
        handleMenssage()

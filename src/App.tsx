@@ -24,7 +24,7 @@ function AppContent() {
   return (
   
       <NavigationContainer>
-        {user.isLogin?<AppRouter/>:<RouterSiginIn/>}
+        {user?<AppRouter/>:<RouterSiginIn/>}
       </NavigationContainer>
     
   );

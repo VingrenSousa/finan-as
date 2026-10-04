@@ -12,7 +12,20 @@
           "package_name": "com.anonymous.financas"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "555165574838-e5gencbjdpua4i3c77mhntul4p2khl4a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anonymous.financas",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "555165574838-73prp4vpcssbd6vr36bq7dit03qhb0f8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC6z-J61L4FiYFH_LAkqrPJEwLKB0ANfgs"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "555165574838-73prp4vpcssbd6vr36bq7dit03qhb0f8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "555165574838-ldn7k5ovmpeb3o0j3k44dvb3nnon86uf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vingren.financas"
+              }
+            }
+          ]
         }
       }
     }

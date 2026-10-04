@@ -2,12 +2,12 @@
   "expo": {
     "name": "financas",
     "slug": "financas",
-    "schema":"financas",
+    "schema": "financas",
     "version": "1.0.0",
     "plugins": [
       "expo-font",
       "@react-native-firebase/app",
-      
+      "@react-native-firebase/auth",
       [
         "expo-build-properties",
         {
@@ -15,16 +15,17 @@
             "useFrameworks": "dynamic"
           }
         }
-      ]
+      ],
+      "@react-native-firebase/auth",
+      "@react-native-google-signin/google-signin"
     ],
     "android": {
       "package": "com.anonymous.financas",
       "googleServicesFile": "./google-services.json"
     },
-     "ios": {
+    "ios": {
       "bundleIdentifier": "com.vingren.financas",
       "googleServicesFile": "./GoogleService-Info.plist"
     }
-    
   }
 }

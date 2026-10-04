@@ -137,6 +137,16 @@ export default function Dashboard(){
         getDateTransaction();
     },[]));
    
+    async function hendleDelete(id:string) {
+        try {
+            firebase.delete(id)
+             getDateTransaction();
+        
+        } catch (error) {
+            console.error(error)
+        }
+        
+    }
     return(
         <Conteiner>  
             <Header>
@@ -183,7 +193,7 @@ export default function Dashboard(){
                   data={date}
                   showsVerticalScrollIndicator={false}
                   keyExtractor={item=>item.id}
-                  renderItem={({item})=><TransactionCard date={item}/>}
+                  renderItem={({item})=><TransactionCard dalete={()=>hendleDelete(item.id)} date={item}/>}
                   contentContainerStyle={{
                     paddingBottom:22
                   }}

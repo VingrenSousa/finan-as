@@ -7,7 +7,7 @@ type porps={
 }
 
 
-export const Conteiner=styled.View`
+export const Conteiner=styled.Pressable`
     background-color:${({theme})=>theme.COLORS.SHAPE};
     border-radius:5px;
 

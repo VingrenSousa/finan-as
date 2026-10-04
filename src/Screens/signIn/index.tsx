@@ -1,5 +1,4 @@
-import { Platform, } from "react-native";
-import ButtonSignIn from "../../components/forms/buttonSign";
+
 import { 
     Conteiner,
     Header,
@@ -28,20 +27,50 @@ import ButtonSignInConta from "../../components/forms/buttonSignConta";
 import { useNavigation } from "@react-navigation/native";
 import { AuthStackParamList } from "../../routes/app.steck.routes";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword
+} from "@react-native-firebase/auth";
+import { Alert } from "react-native";
 
 type navigationProps= StackNavigationProp<AuthStackParamList>
 export default function SiginIn(){
+    const auth = getAuth()
     const date = useAuth()
     const navigate= useNavigation<navigationProps>()
+
+    const [email,setEmail]=useState("")
+    const [password,setPassword]=useState("")
    
 
   function handleCreate() {
     navigate.navigate("Create")
   }
  
-   function handleLogin() {
-    date.handleLogin()
+   async function handleLoginAndEmail() {
+    if(email && password ){
+        try {
+            const result = await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+        console.log(result.user);
+        
+
+    } catch (error) {
+        console.log(error);
+    }
+    }else{
+        Alert.alert("email e senha é obrigatorio ")
+    }
+       
+  }
+  function handleLoginGooogle(){
+    date.handleLoginGoogle()
   }
   
     return(
@@ -64,12 +93,12 @@ export default function SiginIn(){
             <Footer>
 
                 <ConteinerFooter >
-                    <InputSiginIn label="Email" />
-                    <InputSiginIn label="Senha" />
+                    <InputSiginIn onChangeText={setEmail} value={email} label="Email" />
+                    <InputSiginIn onChangeText={setPassword} value={password} label="Senha" />
                 </ConteinerFooter>
 
                 <ConteinerSubmit>
-                     <Button onPress={handleLogin} color={themeWhite.COLORS.PRIMARY} title="Entra"/>
+                     <Button onPress={handleLoginAndEmail} color={themeWhite.COLORS.PRIMARY} title="Entra"/>
 
                         
                     <ConteinerSeparator>
@@ -79,7 +108,7 @@ export default function SiginIn(){
                     </ConteinerSeparator>
 
                     <ConteinerSignInContas>
-                        <ButtonSignInConta type="google" />
+                        <ButtonSignInConta onPress={handleLoginGooogle} type="google" />
                         <ButtonSignInConta  type="apple"/>
                     </ConteinerSignInContas>
 

@@ -1,15 +1,18 @@
-import { createContext, useContext, ReactNode, useState } from "react";
-import * as AuthSession from "expo-auth-session";
+import { createContext, useContext, ReactNode, useState, useEffect } from "react";
+
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithCredential, signOut } from "@react-native-firebase/auth";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 
 
 interface UserProps {
-  isLogin: boolean;
+  uid:string
+
 }
 
 interface PropsContext {
-  user: UserProps;
-  handleLogin: () => void;
+  user: UserProps|null;
+  handleLoginGoogle: () => void;
   handleLogout: () => void;
  
 }
@@ -18,21 +21,47 @@ interface ProviderProps {
   children: ReactNode;
 }
 
-const AuthContext = createContext({} as PropsContext);
+const AuthContext = createContext({} as PropsContext)
+
+ GoogleSignin.configure({
+    webClientId: "555165574838-73prp4vpcssbd6vr36bq7dit03qhb0f8.apps.googleusercontent.com",
+});
 
 function AuthProvider({ children }: ProviderProps) {
-  const[user, setUser] = useState<UserProps>({ isLogin: false });
+  const[user, setUser] = useState<UserProps|null>(null);
+  const auth = getAuth()
  
-  function handleLogin() {
-    setUser({ isLogin: true });
+ 
+  async function handleLoginGoogle() {
+    await GoogleSignin.hasPlayServices();
+
+    const result = await GoogleSignin.signIn();
+
+    const idToken = result.data?.idToken;
+
+    if (!idToken) {
+      throw new Error("Não foi possível obter o ID Token");
+    }
+
+    const credential = GoogleAuthProvider.credential(idToken);
+
+    await signInWithCredential(auth, credential);
   }
 
   function handleLogout() {
-    setUser({ isLogin: false });
+    signOut(auth)
   }
+  useEffect(()=>{
+
+    const dateUser = onAuthStateChanged(auth,(user)=>{
+      setUser(user)
+    })
+
+    return dateUser;
+  },[])
   return (
     <AuthContext.Provider
-      value={{ user, handleLogin, handleLogout }}
+      value={{ user, handleLoginGoogle, handleLogout }}
       
     >
       {children}
