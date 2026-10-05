@@ -11,7 +11,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import AppRouter from "./routes/app.routes";
 
-import { ContextTheme, ThemeContext } from "./hooks/themeContext";
+
 
 import { AuthProvider, useAuth } from "./hooks/UseAuthContext";
 import RouterSiginIn from "./routes/app.steck.routes";
@@ -42,12 +42,12 @@ export default function App() {
   }
 
   return (
-    <ContextTheme>
+    
        <ThemeProvider theme={themeWhite }>
         <AuthProvider>
            <AppContent/>
         </AuthProvider>
       </ThemeProvider>
-    </ContextTheme>
+    
   );
 }
