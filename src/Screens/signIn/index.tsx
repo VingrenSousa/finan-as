@@ -27,17 +27,14 @@ import ButtonSignInConta from "../../components/forms/buttonSignConta";
 import { useNavigation } from "@react-navigation/native";
 import { AuthStackParamList } from "../../routes/app.steck.routes";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { useCallback, useEffect, useState } from "react";
+import {useState } from "react";
 
-import {
-  getAuth,
-  signInWithEmailAndPassword
-} from "@react-native-firebase/auth";
+
 import { Alert } from "react-native";
 
 type navigationProps= StackNavigationProp<AuthStackParamList>
 export default function SiginIn(){
-    const auth = getAuth()
+   
     const date = useAuth()
     const navigate= useNavigation<navigationProps>()
 
@@ -49,21 +46,14 @@ export default function SiginIn(){
     navigate.navigate("Create")
   }
  
-   async function handleLoginAndEmail() {
+    async function handleLoginAndEmail() {
     if(email && password ){
         try {
-            const result = await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
+           await date.handleLoginEmailAndPassword(email,password)
 
-        console.log(result.user);
-        
-
-    } catch (error) {
-        console.log(error);
-    }
+        } catch (error) {
+            console.log(error);
+        }
     }else{
         Alert.alert("email e senha é obrigatorio ")
     }

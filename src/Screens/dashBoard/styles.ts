@@ -52,6 +52,8 @@ export const Photo = styled.Image`
     height:${RFValue(48)}px;
 
     border-radius:10px;
+    border:1px solid ${({ theme }) => theme.COLORS.SHAPE};
+    background-color:${({ theme }) => theme.COLORS.SHAPE};
 `;
 export const User = styled.View`
     margin-left:${RFValue(17)}px;

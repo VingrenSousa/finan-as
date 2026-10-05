@@ -12,6 +12,9 @@ import { useAuth } from "../../hooks/UseAuthContext";
 
 
 import { TransactionService } from "../../service/firebase/transaction";
+import { getAuth } from "@react-native-firebase/auth";
+
+
 
 
 export interface dataListProps extends propsDateCard{
@@ -34,7 +37,11 @@ interface higtLightDateProps{
 export default function Dashboard(){
     const { handleLogout } = useAuth();
     const[date,setDate]=useState<dataListProps[]>([])
+    const[UserNeme,setUserNeme]=useState("")
+    const[UserImg,setUserImg]=useState("")
     const firebase = new TransactionService()
+
+    const auth = getAuth();
 
     const[higtLightDate,setHigtLightDate]=useState<higtLightDateProps>()
 
@@ -47,15 +54,22 @@ export default function Dashboard(){
         const lastTransaction= new Date(Math.max.apply(Math,timesColetion));
         // funcao que fromata a data pegando nome por estenco do mes 
         const formattedTransaction = `${lastTransaction.getDate()} de ${lastTransaction.toLocaleString("pt-BR",{month:"long"})}`
-
-        return formattedTransaction
+        
+        if(isNaN(lastTransaction.getTime())){
+            return null
+        }else{
+            return formattedTransaction
+        }
+        
+        
     }
     
     async function getDateTransaction() {
         
        const transacton:dataListProps[] = await firebase.getAll();
-
-       console.log(transacton)
+        
+     
+       
         
         let entriesTotal= 0
         let ExpensiveTotla = 0
@@ -94,7 +108,7 @@ export default function Dashboard(){
         const lastTransactionDateEntries=getLastTransactionDate(transacton,"positive");
         const lastTransactionDateExpensive=getLastTransactionDate(transacton,"negative");
 
-        const totalInterval=`01 a ${lastTransactionDateExpensive}`
+        const totalInterval=lastTransactionDateExpensive?`01 a ${lastTransactionDateExpensive}`:""
 
         const total = entriesTotal-ExpensiveTotla
 
@@ -104,14 +118,14 @@ export default function Dashboard(){
                     style:"currency",
                     currency:"BRL"
                 }),
-                lastTransaction:`Última entrada dia ${lastTransactionDateEntries}`
+                lastTransaction:lastTransactionDateEntries?`Última entrada dia ${lastTransactionDateEntries}`:"ainda nao a entrada"
             },
             expensive:{
                 amount:ExpensiveTotla.toLocaleString("pt-BR",{
                     style:"currency",
                     currency:"BRL"
                 }),
-                lastTransaction:`Última saída ${lastTransactionDateExpensive}`
+                lastTransaction:lastTransactionDateExpensive?`Última saída ${lastTransactionDateExpensive}`:"ainda nao a entrada"
             },
             total:{
                   amount:total.toLocaleString("pt-BR",{
@@ -128,9 +142,17 @@ export default function Dashboard(){
     function handleOut() {
       handleLogout()
     }
+    function getUserDate(){
+        const user = auth.currentUser;
+        setUserNeme(user?.displayName ?? "");
+        setUserImg(user?.photoURL ?? "");
+        
+        
+    }
 
     useEffect(()=>{
         getDateTransaction();
+        getUserDate()
     },[])
 
     useFocusEffect(useCallback(()=>{
@@ -143,7 +165,7 @@ export default function Dashboard(){
              getDateTransaction();
         
         } catch (error) {
-            console.error(error)
+            console.log(error)
         }
         
     }
@@ -152,10 +174,10 @@ export default function Dashboard(){
             <Header>
                 <UserConteiner>
                     <UserInfo>
-                        <Photo source={{uri:"https://github.com/VingrenSousa.png"}}/>
+                        <Photo source={UserImg?{uri:UserImg}:require("../../assets/do-utilizador.png")}/>
                         <User>
                             <UserGreeting> Olá, </UserGreeting>
-                            <UserName>Vingren</UserName>
+                            <UserName>{UserNeme}</UserName>
                         </User>
                     </UserInfo>
                     
@@ -165,20 +187,20 @@ export default function Dashboard(){
             <HighlightCards >
                 <HighlightCard
                     title="Entrada" 
-                    amount={higtLightDate?higtLightDate.entries.amount:"R$000,00"}
+                    amount={higtLightDate?higtLightDate.entries.amount:"R$0,00"}
                     lastTransactions={higtLightDate?higtLightDate.entries.lastTransaction:""}
                     Types="up"/>
 
                 <HighlightCard 
                     Types="down"
                     title="saidas" 
-                    amount={higtLightDate?higtLightDate.expensive.amount:"R$000,00"}
+                    amount={higtLightDate?higtLightDate.expensive.amount:"R$0,00"}
                     lastTransactions={higtLightDate?higtLightDate.expensive.lastTransaction:""}/>
 
                 <HighlightCard
                     Types="total"
                     title="Total" 
-                    amount={higtLightDate?higtLightDate.total.amount:"R$000,00"}
+                    amount={higtLightDate?higtLightDate.total.amount:"R$0,00"}
                     lastTransactions={higtLightDate?higtLightDate.total.lastTransaction:""}/>
                  
 

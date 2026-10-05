@@ -1,6 +1,6 @@
 import { createContext, useContext, ReactNode, useState, useEffect } from "react";
 
-import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithCredential, signOut } from "@react-native-firebase/auth";
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithCredential, signInWithEmailAndPassword, signOut } from "@react-native-firebase/auth";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 
@@ -14,6 +14,7 @@ interface PropsContext {
   user: UserProps|null;
   handleLoginGoogle: () => void;
   handleLogout: () => void;
+  handleLoginEmailAndPassword:(email:string,password:string)=>Promise<void>
  
 }
 
@@ -47,7 +48,20 @@ function AuthProvider({ children }: ProviderProps) {
 
     await signInWithCredential(auth, credential);
   }
+  async function handleLoginEmailAndPassword(email:string,password:string) {
 
+    
+    const result = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    if (!result.user) {
+        throw new Error("Não foi possível obter o ID Token");
+    }
+    
+    
+  }
   function handleLogout() {
     signOut(auth)
   }
@@ -61,7 +75,7 @@ function AuthProvider({ children }: ProviderProps) {
   },[])
   return (
     <AuthContext.Provider
-      value={{ user, handleLoginGoogle, handleLogout }}
+      value={{ user, handleLoginGoogle, handleLogout,handleLoginEmailAndPassword }}
       
     >
       {children}
